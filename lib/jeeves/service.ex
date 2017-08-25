@@ -207,6 +207,8 @@ defmodule Jeeves.Service do
   @doc false
   defdelegate generate_handle_call(options,function),    to: Jeeves.Named
   @doc false
+  defdelegate generate_handle_cast(options,function),    to: Jeeves.Named
+  @doc false
   defdelegate generate_implementation(options,function), to: Jeeves.Named
   
   @doc false

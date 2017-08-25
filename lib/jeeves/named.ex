@@ -129,6 +129,19 @@ defmodule Jeeves.Named do
     end
   end
 
+  @doc false
+  def generate_handle_cast(options, {cast, _body}) do
+    request  = call_signature(cast)
+    api_cast = api_signature(options, cast)
+    state_var = { state_name(options), [], nil }
+    
+    quote do
+      def handle_cast(unquote(request), unquote(state_var)) do
+        __MODULE__.Implementation.unquote(api_cast)
+        |> Jeeves.Common.create_genserver_response(unquote(state_var))
+      end
+    end
+  end
 
   @doc false
   def generate_implementation(options, {call, body}) do
